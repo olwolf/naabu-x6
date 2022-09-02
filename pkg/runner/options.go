@@ -3,8 +3,8 @@ package runner
 import (
 	"time"
 
+	"github.com/olwolf/naabu-x6/pkg/result"
 	"github.com/projectdiscovery/fileutil"
-	"naabu-x6/pkg/result"
 
 	"github.com/projectdiscovery/goflags"
 	"github.com/projectdiscovery/gologger"
@@ -141,7 +141,7 @@ func ParseOptions() *Options {
 		IcmpAddressMaskRequestProbe: false,
 		ArpPing:                     false,
 		IPv6NeighborDiscoveryPing:   false,
-		InputReadTimeout:            time.Duration(3*time.Minute),
+		InputReadTimeout:            time.Duration(3 * time.Minute),
 		DisableStdin:                false,
 	}
 
@@ -228,7 +228,7 @@ func ParseOptions() *Options {
 
 	_ = flagSet.Parse()*/
 
-/*	if options.HealthCheck {
+	/*	if options.HealthCheck {
 		gologger.Print().Msgf("%s\n", DoHealthCheck(options))
 		os.Exit(0)
 	}*/
@@ -250,13 +250,13 @@ func ParseOptions() *Options {
 	// Show the user the banner
 	//showBanner()
 
-/*	if options.Version {
+	/*	if options.Version {
 		gologger.Info().Msgf("Current Version: %s\n", Version)
 		os.Exit(0)
 	}*/
 
 	// Show network configuration and exit if the user requested it
-/*	if options.InterfacesList {
+	/*	if options.InterfacesList {
 		err := showNetworkInterfaces()
 		if err != nil {
 			gologger.Error().Msgf("Could not get network interfaces: %s\n", err)
@@ -266,10 +266,10 @@ func ParseOptions() *Options {
 
 	// Validate the options passed by the user and if any
 	// invalid options have been used, exit.
-/*	err := options.validateOptions()
-	if err != nil {
-		gologger.Fatal().Msgf("Program exiting: %s\n", err)
-	}*/
+	/*	err := options.validateOptions()
+		if err != nil {
+			gologger.Fatal().Msgf("Program exiting: %s\n", err)
+		}*/
 
 	return options
 }

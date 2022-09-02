@@ -14,6 +14,9 @@ import (
 	"time"
 
 	"github.com/miekg/dns"
+	"github.com/olwolf/naabu-x6/pkg/privileges"
+	"github.com/olwolf/naabu-x6/pkg/result"
+	"github.com/olwolf/naabu-x6/pkg/scan"
 	"github.com/pkg/errors"
 	"github.com/projectdiscovery/blackrock"
 	"github.com/projectdiscovery/clistats"
@@ -25,9 +28,6 @@ import (
 	"github.com/projectdiscovery/sliceutil"
 	"github.com/remeh/sizedwaitgroup"
 	"go.uber.org/ratelimit"
-	"naabu-x6/pkg/privileges"
-	"naabu-x6/pkg/result"
-	"naabu-x6/pkg/scan"
 )
 
 // Runner is an instance of the port enumeration
@@ -117,36 +117,35 @@ func (r *Runner) RunEnumeration() (err error, rets map[string][]int) {
 		if r.options.SourceIP != "" {
 			err := r.SetSourceIP(r.options.SourceIP)
 			if err != nil {
-				return err,nil
+				return err, nil
 			}
 		}
 		if r.options.Interface != "" {
 			err := r.SetInterface(r.options.Interface)
 			if err != nil {
-				return err,nil
+				return err, nil
 			}
 		}
 		if r.options.SourcePort != "" {
 			err := r.SetSourcePort(r.options.SourcePort)
 			if err != nil {
-				return err,nil
+				return err, nil
 			}
 		}
 
 		err := r.scanner.SetupHandlers()
 		if err != nil {
-			return err,nil
+			return err, nil
 		}
 		r.BackgroundWorkers()
 	}
-
 
 	if r.options.Stream {
 		go r.Load() //nolint
 	} else {
 		err := r.Load()
 		if err != nil {
-			return err,nil
+			return err, nil
 		}
 	}
 
@@ -156,12 +155,11 @@ func (r *Runner) RunEnumeration() (err error, rets map[string][]int) {
 
 	shouldUseRawPackets := isOSSupported() && privileges.IsPrivileged && r.options.ScanType == SynScan
 
-
-		//showNetworkCapabilities(r.options)
-		// shrinks the ips to the minimum amount of cidr
+	//showNetworkCapabilities(r.options)
+	// shrinks the ips to the minimum amount of cidr
 	targets, targetsV4, targetsv6, err := r.GetTargetIps()
 	if err != nil {
-		return err,nil
+		return err, nil
 	}
 	var targetsCount, portsCount uint64
 	for _, target := range append(targetsV4, targetsv6...) {
@@ -174,7 +172,6 @@ func (r *Runner) RunEnumeration() (err error, rets map[string][]int) {
 
 	r.scanner.Phase.Set(scan.Scan)
 	Range := targetsCount * portsCount
-
 
 	// Retries are performed regardless of the previous scan results due to network unreliability
 	for currentRetry := 0; currentRetry < r.options.Retries; currentRetry++ {
@@ -250,9 +247,9 @@ func (r *Runner) RunEnumeration() (err error, rets map[string][]int) {
 	r.scanner.Phase.Set(scan.Done)
 
 	// Validate the hosts if the user has asked for second step validation
-/*		if r.options.Verify {
-		r.ConnectVerification()
-	}*/
+	/*		if r.options.Verify {
+			r.ConnectVerification()
+		}*/
 	err, rets = r.HandleResult()
 	//r.handleOutput(r.scanner.ScanResults)
 
@@ -272,9 +269,9 @@ func (r *Runner) HandleResult() (err error, rets map[string][]int) {
 			}
 			rets[s] = ports
 		}
-		return nil,rets
-	}else {
-		return nil,nil
+		return nil, rets
+	} else {
+		return nil, nil
 	}
 
 	/*for hostIP, ports := range r.scanner.ScanResults.IpPorts {

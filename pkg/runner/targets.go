@@ -10,12 +10,12 @@ import (
 	"os"
 	"strings"
 
+	"github.com/olwolf/naabu-x6/pkg/privileges"
+	"github.com/olwolf/naabu-x6/pkg/scan"
 	"github.com/projectdiscovery/fileutil"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/iputil"
 	"github.com/remeh/sizedwaitgroup"
-	"naabu-x6/pkg/privileges"
-	"naabu-x6/pkg/scan"
 )
 
 func (r *Runner) Load() error {

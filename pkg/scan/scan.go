@@ -11,6 +11,9 @@ import (
 
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/layers"
+	"github.com/olwolf/naabu-x6/pkg/privileges"
+	"github.com/olwolf/naabu-x6/pkg/result"
+	"github.com/olwolf/naabu-x6/pkg/routing"
 	"github.com/phayes/freeport"
 	"github.com/projectdiscovery/cdncheck"
 	"github.com/projectdiscovery/gologger"
@@ -22,9 +25,6 @@ import (
 	"golang.org/x/net/ipv4"
 	"golang.org/x/net/ipv6"
 	"golang.org/x/net/proxy"
-	"naabu-x6/pkg/privileges"
-	"naabu-x6/pkg/result"
-	"naabu-x6/pkg/routing"
 )
 
 // State determines the internal scan state

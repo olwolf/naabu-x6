@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/olwolf/naabu-x6/pkg/runner"
 	"github.com/projectdiscovery/goflags"
-	"naabu-x6/pkg/runner"
 )
 
 func PortScan(ip string, thread int, ports string) (error, map[string][]int) {
@@ -21,7 +21,7 @@ func PortScan(ip string, thread int, ports string) (error, map[string][]int) {
 	if err != nil {
 		return err, nil
 	}
-	return nil,rets
+	return nil, rets
 }
 
 //func main() {

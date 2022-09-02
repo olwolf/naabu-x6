@@ -3,9 +3,8 @@ package result
 import (
 	"sync"
 
-	"naabu-x6/pkg/utils"
+	"github.com/olwolf/naabu-x6/pkg/utils"
 )
-
 
 type HostResult struct {
 	Host  string
