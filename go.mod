@@ -1,4 +1,4 @@
-module naabu-x6
+module github.com/olwolf/naabu-x6
 
 go 1.18
 
