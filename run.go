@@ -1,4 +1,4 @@
-package main
+package run
 
 import (
 	"github.com/olwolf/naabu-x6/pkg/runner"
